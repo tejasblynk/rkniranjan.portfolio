@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ravindra Kumar Niranjan | Portfolio</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Space+Grotesk:wght@500;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Icons (Phosphor Icons - equivalent to Lucide) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        html, body { 
+            background-color: #000000 !important; 
+            color: #ffffff !important; 
+            margin: 0; 
+            padding: 0;
+            width: 100%;
+            overflow-x: hidden; 
+            cursor: none; 
+        }
+        
+        /* Webkit Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000000; }
+        ::-webkit-scrollbar-thumb { background: #2e1065; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #7c3aed; }
+        
+        /* Premium Text Gradients */
+        .text-gradient-purple {
+            background: linear-gradient(135deg, #a78bfa 0%, #c084fc 50%, #e879f9 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-gradient-shimmer {
+            background: linear-gradient(90deg, #ffffff, #a78bfa, #ffffff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shimmerText 3s linear infinite;
+        }
+
+        /* Continuous Animations */
+        @keyframes shimmerText {
+            to { background-position: 200% center; }
+        }
+        
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) rotate(2deg); }
+            75% { transform: translateY(10px) rotate(-2deg); }
+        }
+
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px 0 rgba(124, 58, 237, 0.3); }
+            50% { box-shadow: 0 0 40px 10px rgba(124, 58, 237, 0.6); }
+        }
+
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        @keyframes borderRotate {
+            100% { transform: rotate(1turn); }
+        }
+
+        .animate-marquee { animation: marquee 30s linear infinite; }
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-spin-slow { animation: spin-slow 20s linear infinite; }
+
+        /* 3D & Reveal Utilities */
+        .preserve-3d { transform-style: preserve-3d; }
+        .translate-z-10 { transform: translateZ(20px); }
+        .translate-z-20 { transform: translateZ(40px); }
+        .translate-z-30 { transform: translateZ(60px); }
+        
+        /* Vanilla JS Reveal States */
+        .reveal {
+            transition: all 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+            filter: blur(8px);
+            will-change: transform, opacity, filter;
+        }
+        .reveal.up { transform: translateY(6rem); }
+        .reveal.down { transform: translateY(-6rem); }
+        .reveal.left { transform: translateX(6rem); }
+        .reveal.right { transform: translateX(-6rem); }
+        
+        .reveal.is-visible {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+            filter: blur(0px);
+        }
+        
+        /* Deep Glassmorphism */
+        .glass-dark {
+            background: rgba(10, 10, 10, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-purple {
+            background: rgba(46, 16, 101, 0.2);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        /* Subtle Background Patterns */
+        .bg-grid {
+            background-size: 50px 50px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        }
+
+        /* Custom Animated Border for Email Dock */
+        .animated-border-box {
+            position: relative;
+            border-radius: 9999px;
+            overflow: hidden;
+            padding: 2px;
+            z-index: 0;
+        }
+        .animated-border-box::before {
+            content: '';
+            position: absolute;
+            z-index: -2;
+            left: -50%;
+            top: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(transparent, rgba(167, 139, 250, 1), transparent 30%);
+            animation: borderRotate 4s linear infinite;
+        }
+        .animated-border-box::after {
+            content: '';
+            position: absolute;
+            z-index: -1;
+            left: 2px;
+            top: 2px;
+            width: calc(100% - 4px);
+            height: calc(100% - 4px);
+            background: #050505;
+            border-radius: 9999px;
+        }
+
+        /* Magnetic Wrapper Transition */
+        .magnetic {
+            transition: transform 0.3s ease-out;
+            display: inline-block;
+        }
+
+        /* Mobile specific fixes */
+        @media (max-width: 768px) {
+            html, body { cursor: auto; }
+            #custom-cursor { display: none !important; }
+            #spotlight { display: none !important; }
+        }
+    </style>
+</head>
+
+<body class="selection:bg-violet-500/30 selection:text-white">
+
+    <!-- Custom Cursor -->
+    <div id="custom-cursor" class="fixed top-0 left-0 w-8 h-8 rounded-full border border-violet-500/50 pointer-events-none z-[999] mix-blend-screen transition-transform duration-100 ease-out hidden lg:block backdrop-blur-sm">
+        <div class="absolute inset-0 bg-violet-500/20 rounded-full animate-ping"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2 h-2 bg-white rounded-full shadow-[0_0_10px_#8b5cf6]"></div>
+    </div>
+
+    <!-- Mouse Spotlight -->
+    <div id="spotlight" class="fixed inset-0 z-0 pointer-events-none transition-opacity duration-300 mix-blend-screen hidden md:block" style="background: radial-gradient(800px circle at 50vw 50vh, rgba(88, 28, 135, 0.15), transparent 50%);"></div>
+
+    <!-- Preloader Sequence -->
+    <div id="preloader" class="fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center transition-transform duration-1000 ease-[cubic-bezier(0.7,0,0.3,1)]">
+        <div class="relative flex items-center justify-center">
+            <i class="ph ph-hexagon text-violet-600 animate-spin-slow text-[80px]"></i>
+            <div class="absolute inset-0 flex items-center justify-center">
+                <i class="ph ph-atom text-white animate-pulse text-[32px]"></i>
+            </div>
+        </div>
+        <div class="mt-8 text-white font-display font-bold tracking-[0.3em] uppercase text-sm animate-pulse">
+            Initializing System
+        </div>
+        <div class="w-48 h-[1px] bg-white/10 mt-6 relative overflow-hidden">
+            <div class="absolute top-0 left-0 h-full w-full bg-violet-500 animate-[translateX_2s_ease-in-out_infinite] -translate-x-full"></div>
+        </div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="min-h-screen relative w-full overflow-hidden">
+        
+        <!-- Grid and Ambient Orbs -->
+        <div class="fixed inset-0 z-0 bg-grid pointer-events-none opacity-40"></div>
+        <div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-violet-900/20 blur-[150px] pointer-events-none z-0 animate-float"></div>
+        <div class="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-purple-900/10 blur-[150px] pointer-events-none z-0 animate-float" style="animation-delay: 2s;"></div>
+        <div class="fixed top-[40%] right-[20%] w-[30%] h-[30%] rounded-full bg-fuchsia-900/10 blur-[120px] pointer-events-none z-0 animate-pulse"></div>
+
+        <!-- Navbar -->
+        <nav id="navbar" class="fixed top-0 w-full z-50 transition-all duration-500 bg-transparent py-8">
+            <div class="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
+                <div class="magnetic">
+                    <div class="font-display text-xl font-bold tracking-tighter text-white flex items-center gap-3 cursor-pointer group">
+                        <div class="relative w-10 h-10 bg-black border border-white/10 rounded-xl flex items-center justify-center overflow-hidden group-hover:border-violet-500/50 transition-colors">
+                            <div class="absolute inset-0 bg-gradient-to-br from-violet-600/20 to-purple-600/20 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <span class="text-white font-black z-10 group-hover:text-violet-400 transition-colors">R</span>
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="leading-none mb-1">R.K. Niranjan</span>
+                            <span class="text-[0.65rem] text-violet-400 uppercase tracking-widest font-semibold">BIET Jhansi</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hidden md:flex items-center space-x-1 text-sm font-medium tracking-wider uppercase font-display">
+                    <div class="magnetic"><a href="#expertise" class="relative px-4 py-2 text-neutral-400 hover:text-white transition-colors duration-300 group"><span class="relative z-10">Expertise</span><span class="absolute bottom-0 left-4 right-4 h-[1px] bg-violet-500 scale-x-0 origin-right group-hover:origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out"></span></a></div>
+                    <div class="magnetic"><a href="#publications" class="relative px-4 py-2 text-neutral-400 hover:text-white transition-colors duration-300 group"><span class="relative z-10">Publications</span><span class="absolute bottom-0 left-4 right-4 h-[1px] bg-violet-500 scale-x-0 origin-right group-hover:origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out"></span></a></div>
+                    <div class="magnetic"><a href="#experience" class="relative px-4 py-2 text-neutral-400 hover:text-white transition-colors duration-300 group"><span class="relative z-10">Experience</span><span class="absolute bottom-0 left-4 right-4 h-[1px] bg-violet-500 scale-x-0 origin-right group-hover:origin-left group-hover:scale-x-100 transition-transform duration-300 ease-out"></span></a></div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="relative z-10">
+            <!-- Hero Section -->
+            <section class="min-h-[100svh] flex flex-col justify-center pt-24 pb-12 px-6 md:px-12 relative overflow-hidden">
+                <div class="absolute top-1/4 right-10 opacity-20 animate-spin-slow pointer-events-none hidden lg:block">
+                    <i class="ph ph-graph text-violet-900 text-[400px]"></i>
+                </div>
+
+                <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-12 gap-12 items-center">
+                    
+                    <div class="lg:col-span-8 space-y-8 relative z-10">
+                        <div class="reveal up" style="transition-delay: 2400ms;">
+                            <div class="magnetic">
+                                <div class="inline-flex items-center space-x-3 px-4 py-2 rounded-full border border-violet-500/30 bg-violet-500/10 text-violet-300 text-xs font-bold uppercase tracking-widest backdrop-blur-md">
+                                    <span class="relative flex h-2 w-2">
+                                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75"></span>
+                                        <span class="relative inline-flex rounded-full h-2 w-2 bg-violet-500"></span>
+                                    </span>
+                                    <span>Asst. Professor • Chemical Engineering</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-4">
+                            <div class="reveal up" style="transition-delay: 2600ms;">
+                                <h1 class="text-5xl md:text-7xl lg:text-[6.5rem] font-black tracking-tighter leading-[0.95] text-white font-display">
+                                    Ravindra <br />
+                                    <span class="text-gradient-purple">K. Niranjan</span>
+                                </h1>
+                            </div>
+                        </div>
+
+                        <div class="reveal up" style="transition-delay: 2800ms;">
+                            <p class="text-lg md:text-2xl text-neutral-400 max-w-2xl leading-relaxed font-light">
+                                Advancing the frontiers of <strong class="text-white font-medium">Polymer Composites</strong>, 
+                                <strong class="text-white font-medium">Nanostructured Carbon</strong>, and thermodynamics for high-performance structural and energy applications.
+                            </p>
+                        </div>
+
+                        <div class="reveal up flex flex-wrap items-center gap-6 pt-8" style="transition-delay: 3000ms;">
+                            <div class="magnetic">
+                                <a href="https://scholar.google.com/citations?user=1rqfBNkAAAAJ&hl=en" target="_blank" rel="noreferrer" class="group relative px-8 py-5 rounded-2xl bg-white text-black font-display font-bold flex items-center gap-3 overflow-hidden">
+                                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-violet-200 to-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-out"></span>
+                                    <i class="ph ph-book-open text-xl relative z-10 group-hover:rotate-12 transition-transform"></i>
+                                    <span class="relative z-10">Google Scholar</span>
+                                    <i class="ph ph-arrow-up-right text-xl relative z-10 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300 absolute right-4"></i>
+                                </a>
+                            </div>
+                            
+                            <div class="magnetic">
+                                <a href="https://www.researchgate.net/profile/Ravindra-Kumar-14" target="_blank" rel="noreferrer" class="group px-8 py-5 rounded-2xl glass-dark text-white font-display font-bold flex items-center gap-3 hover:bg-white/10 transition-colors border border-white/10 hover:border-violet-500/50">
+                                    <i class="ph ph-atom text-xl text-violet-400 group-hover:animate-spin-slow"></i>
+                                    <span>ResearchGate</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3D Stat Card -->
+                    <div class="lg:col-span-4 relative lg:h-[600px] flex items-center justify-center">
+                        <div class="reveal left w-full" style="transition-delay: 3200ms;">
+                            <div class="tilt-card relative transition-all duration-300 ease-out preserve-3d overflow-hidden w-full">
+                                <div class="tilt-glare absolute inset-0 z-50 pointer-events-none transition-opacity duration-300" style="opacity: 0;"></div>
+                                
+                                <div class="aspect-[4/5] rounded-[2.5rem] bg-[#050505] p-10 flex flex-col justify-between relative group border border-white/10 overflow-hidden shadow-2xl">
+                                    <div class="absolute inset-0 bg-gradient-to-br from-violet-600/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                    <div class="absolute top-0 right-0 w-64 h-64 bg-violet-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 group-hover:bg-fuchsia-500/20 transition-colors duration-700"></div>
+                                    
+                                    <div class="relative z-10 translate-z-20 pt-4">
+                                        <i class="ph ph-fingerprint text-[48px] text-white/20 mb-8 group-hover:text-violet-500/50 transition-colors duration-500"></i>
+                                        <h3 class="text-7xl font-black text-white tracking-tighter font-display">
+                                            380<span class="text-violet-500 animate-pulse">+</span>
+                                        </h3>
+                                        <p class="text-xs font-bold text-neutral-400 uppercase tracking-widest mt-4 flex items-center gap-2">
+                                            <i class="ph ph-activity text-sm text-violet-400"></i> Total Citations
+                                        </p>
+                                    </div>
+                                    
+                                    <div class="grid grid-cols-2 gap-6 border-t border-white/10 pt-8 relative z-10 translate-z-10">
+                                        <div class="group/stat">
+                                            <h3 class="text-4xl font-bold text-white font-display group-hover/stat:text-violet-400 transition-colors">11</h3>
+                                            <p class="text-[0.65rem] font-bold text-neutral-500 uppercase tracking-widest mt-2">h-index</p>
+                                        </div>
+                                        <div class="group/stat">
+                                            <h3 class="text-4xl font-bold text-white font-display group-hover/stat:text-violet-400 transition-colors">11</h3>
+                                            <p class="text-[0.65rem] font-bold text-neutral-500 uppercase tracking-widest mt-2">i10-index</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Infinite Marquee Section -->
+            <section class="py-12 border-y border-white/5 bg-[#020202] overflow-hidden flex whitespace-nowrap relative">
+                <div class="absolute inset-y-0 left-0 w-48 bg-gradient-to-r from-[#000000] to-transparent z-10 pointer-events-none"></div>
+                <div class="absolute inset-y-0 right-0 w-48 bg-gradient-to-l from-[#000000] to-transparent z-10 pointer-events-none"></div>
+                
+                <div class="flex w-[200%] animate-marquee items-center text-5xl md:text-7xl font-black text-neutral-900 uppercase tracking-tighter font-display select-none">
+                    <!-- Duplicate for seamless scroll -->
+                    <div class="flex items-center justify-around w-full">
+                        <span class="hover:text-white transition-colors duration-300">Chemical Engineering</span>
+                        <i class="ph ph-hexagon mx-12 text-violet-900 text-[48px]"></i>
+                        <span class="hover:text-white transition-colors duration-300">Polymer Composites</span>
+                        <i class="ph ph-hexagon mx-12 text-violet-900 text-[48px]"></i>
+                        <span class="hover:text-white transition-colors duration-300">Carbon Nanomaterials</span>
+                        <i class="ph ph-hexagon mx-12 text-violet-900 text-[48px]"></i>
+                        <span class="hover:text-white transition-colors duration-300">Thermodynamics</span>
+                        <i class="ph ph-hexagon mx-12 text-violet-900 text-[48px]"></i>
+                    </div>
+                    <div class="flex items-center justify-around w-full">
+                        <span class="hover:text-white transition-colors duration-300">Chemical Engineering</span>
+                        <i class="ph ph-hexagon mx-12 text-violet-900 text-[48px]"></i>
+                        <span class="hover:text-white transition-colors duration-300">Polymer Composites</span>
+                        <i class="ph ph-hexagon mx-12 text-violet-900 text-[48px]"></i>
+                        <span class="hover:text-white transition-colors duration-300">Carbon Nanomaterials</span>
+                        <i class="ph ph-hexagon mx-12 text-violet-900 text-[48px]"></i>
+                        <span class="hover:text-white transition-colors duration-300">Thermodynamics</span>
+                        <i class="ph ph-hexagon mx-12 text-violet-900 text-[48px]"></i>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Expertise Section -->
+            <section id="expertise" class="py-32 px-6 md:px-12 relative">
+                <div class="max-w-7xl mx-auto">
+                    
+                    <!-- Section Heading Template -->
+                    <div class="relative mb-20 md:mb-32 flex flex-col items-center justify-center text-center">
+                        <div class="reveal down absolute inset-0 flex items-center justify-center pointer-events-none z-0" style="transition-delay: 100ms;">
+                            <span class="text-[6rem] md:text-[12rem] font-black text-white/[0.02] tracking-tighter uppercase whitespace-nowrap select-none">Research</span>
+                        </div>
+                        <div class="reveal up relative z-10" style="transition-delay: 200ms;">
+                            <div class="inline-flex items-center space-x-2 mb-4">
+                                <i class="ph ph-sparkle text-violet-500 animate-pulse"></i>
+                                <span class="text-violet-400 text-sm font-bold tracking-widest uppercase">Expertise</span>
+                                <i class="ph ph-sparkle text-violet-500 animate-pulse"></i>
+                            </div>
+                            <h2 class="text-4xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter">
+                                Core <span class="text-gradient-purple">Research </span>Focus
+                            </h2>
+                        </div>
+                        <div class="w-[1px] h-24 bg-gradient-to-b from-violet-500/50 to-transparent mt-8 animate-pulse"></div>
+                    </div>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <!-- Expertise Card 1 -->
+                        <div class="reveal up h-full" style="transition-delay: 0ms;">
+                            <div class="tilt-card h-full relative transition-all duration-300 ease-out preserve-3d overflow-hidden">
+                                <div class="tilt-glare absolute inset-0 z-50 pointer-events-none transition-opacity duration-300" style="opacity: 0;"></div>
+                                <div class="h-full bg-[#050505] p-10 rounded-[2rem] border border-white/5 hover:border-violet-500/30 transition-colors duration-500 group relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 rounded-bl-full -mr-4 -mt-4 group-hover:scale-150 transition-transform duration-700 ease-out"></div>
+                                    <div class="w-16 h-16 rounded-2xl bg-black border border-white/10 flex items-center justify-center mb-10 translate-z-20 relative z-10 shadow-lg group-hover:shadow-violet-500/20 transition-all duration-500">
+                                        <i class="ph ph-flask text-[32px] text-violet-400 group-hover:-translate-y-2 transition-transform duration-500"></i>
+                                    </div>
+                                    <h4 class="text-white font-bold text-2xl mb-4 translate-z-20 font-display relative z-10">Polymer Composites</h4>
+                                    <p class="text-neutral-400 leading-relaxed translate-z-10 text-sm relative z-10">Investigating mechanical and thermal behaviors of reinforced composites (e.g., ABS, Epoxy) for advanced structural applications.</p>
+                                    <div class="absolute bottom-10 right-10 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-500">
+                                        <i class="ph ph-caret-right text-[24px] text-violet-500"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Expertise Card 2 -->
+                        <div class="reveal up h-full" style="transition-delay: 200ms;">
+                            <div class="tilt-card h-full relative transition-all duration-300 ease-out preserve-3d overflow-hidden">
+                                <div class="tilt-glare absolute inset-0 z-50 pointer-events-none transition-opacity duration-300" style="opacity: 0;"></div>
+                                <div class="h-full bg-[#050505] p-10 rounded-[2rem] border border-white/5 hover:border-violet-500/30 transition-colors duration-500 group relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 rounded-bl-full -mr-4 -mt-4 group-hover:scale-150 transition-transform duration-700 ease-out"></div>
+                                    <div class="w-16 h-16 rounded-2xl bg-black border border-white/10 flex items-center justify-center mb-10 translate-z-20 relative z-10 shadow-lg group-hover:shadow-violet-500/20 transition-all duration-500">
+                                        <i class="ph ph-hexagon text-[32px] text-fuchsia-400 group-hover:rotate-180 transition-transform duration-700"></i>
+                                    </div>
+                                    <h4 class="text-white font-bold text-2xl mb-4 translate-z-20 font-display relative z-10">Carbon Nanomaterials</h4>
+                                    <p class="text-neutral-400 leading-relaxed translate-z-10 text-sm relative z-10">Synthesis, functionalization, and characterization of nanostructured carbon to enhance electrical and thermal properties.</p>
+                                    <div class="absolute bottom-10 right-10 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-500">
+                                        <i class="ph ph-caret-right text-[24px] text-violet-500"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Expertise Card 3 -->
+                        <div class="reveal up h-full" style="transition-delay: 400ms;">
+                            <div class="tilt-card h-full relative transition-all duration-300 ease-out preserve-3d overflow-hidden">
+                                <div class="tilt-glare absolute inset-0 z-50 pointer-events-none transition-opacity duration-300" style="opacity: 0;"></div>
+                                <div class="h-full bg-[#050505] p-10 rounded-[2rem] border border-white/5 hover:border-violet-500/30 transition-colors duration-500 group relative overflow-hidden">
+                                    <div class="absolute top-0 right-0 w-32 h-32 bg-violet-500/5 rounded-bl-full -mr-4 -mt-4 group-hover:scale-150 transition-transform duration-700 ease-out"></div>
+                                    <div class="w-16 h-16 rounded-2xl bg-black border border-white/10 flex items-center justify-center mb-10 translate-z-20 relative z-10 shadow-lg group-hover:shadow-violet-500/20 transition-all duration-500">
+                                        <i class="ph ph-atom text-[32px] text-emerald-400 group-hover:animate-spin-slow transition-transform"></i>
+                                    </div>
+                                    <h4 class="text-white font-bold text-2xl mb-4 translate-z-20 font-display relative z-10">PVT Behavior</h4>
+                                    <p class="text-neutral-400 leading-relaxed translate-z-10 text-sm relative z-10">In-depth Pressure-Volume-Temperature analysis of fluids, critical for optimizing industrial chemical processing and thermodynamics.</p>
+                                    <div class="absolute bottom-10 right-10 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all duration-500">
+                                        <i class="ph ph-caret-right text-[24px] text-violet-500"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Publications Section -->
+            <section id="publications" class="py-32 px-6 md:px-12 relative bg-[#020202] border-y border-white/5">
+                <div class="max-w-7xl mx-auto">
+                    
+                    <div class="relative mb-20 md:mb-32 flex flex-col items-center justify-center text-center">
+                        <div class="reveal down absolute inset-0 flex items-center justify-center pointer-events-none z-0" style="transition-delay: 100ms;">
+                            <span class="text-[6rem] md:text-[12rem] font-black text-white/[0.02] tracking-tighter uppercase whitespace-nowrap select-none">Scholar</span>
+                        </div>
+                        <div class="reveal up relative z-10" style="transition-delay: 200ms;">
+                            <div class="inline-flex items-center space-x-2 mb-4">
+                                <i class="ph ph-sparkle text-violet-500 animate-pulse"></i>
+                                <span class="text-violet-400 text-sm font-bold tracking-widest uppercase">Publications</span>
+                                <i class="ph ph-sparkle text-violet-500 animate-pulse"></i>
+                            </div>
+                            <h2 class="text-4xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter">
+                                Selected <span class="text-gradient-purple">Papers</span>
+                            </h2>
+                        </div>
+                        <div class="w-[1px] h-24 bg-gradient-to-b from-violet-500/50 to-transparent mt-8 animate-pulse"></div>
+                    </div>
+
+                    <div class="grid lg:grid-cols-3 gap-8">
+                        <!-- Paper 1 -->
+                        <div class="reveal up h-full" style="transition-delay: 0ms;">
+                            <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=1rqfBNkAAAAJ&citation_for_view=1rqfBNkAAAAJ:u-x6o8ySG0sC" target="_blank" rel="noreferrer" class="block h-full group relative">
+                                <div class="absolute inset-0 bg-gradient-to-b from-violet-600 to-purple-900 rounded-[2rem] opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"></div>
+                                <div class="h-full bg-[#050505] border border-white/10 rounded-[2rem] p-10 flex flex-col relative z-10 transition-all duration-500 overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500"></div>
+                                    <div class="flex items-center justify-between mb-8">
+                                        <span class="px-4 py-1.5 text-[0.65rem] font-bold tracking-widest uppercase rounded-full bg-white/5 text-white border border-white/10 group-hover:border-violet-500/30 transition-colors">2016</span>
+                                        <div class="flex items-center gap-1.5 text-violet-400 font-bold text-xs bg-violet-500/10 px-3 py-1.5 rounded-full">
+                                            <i class="ph ph-medal"></i><span>99 Cites</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-white mb-8 leading-snug font-display group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-violet-200 transition-all duration-300">
+                                        Mechanical and thermal behaviours of graphite flake-reinforced acrylonitrile–butadiene–styrene composites...
+                                    </h3>
+                                    <div class="mt-auto pt-6 border-t border-white/10 flex items-center justify-between">
+                                        <div class="flex items-center gap-2 text-neutral-400 group-hover:text-white transition-colors">
+                                            <i class="ph ph-file-text text-violet-500"></i>
+                                            <span class="font-bold text-[0.7rem] tracking-wider uppercase">RSC Advances</span>
+                                        </div>
+                                        <i class="ph ph-arrow-up-right text-lg text-neutral-600 group-hover:text-violet-400 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Paper 2 -->
+                        <div class="reveal up h-full" style="transition-delay: 200ms;">
+                            <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=1rqfBNkAAAAJ&citation_for_view=1rqfBNkAAAAJ:d1gkVwhDpl0C" target="_blank" rel="noreferrer" class="block h-full group relative">
+                                <div class="absolute inset-0 bg-gradient-to-b from-violet-600 to-purple-900 rounded-[2rem] opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"></div>
+                                <div class="h-full bg-[#050505] border border-white/10 rounded-[2rem] p-10 flex flex-col relative z-10 transition-all duration-500 overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500"></div>
+                                    <div class="flex items-center justify-between mb-8">
+                                        <span class="px-4 py-1.5 text-[0.65rem] font-bold tracking-widest uppercase rounded-full bg-white/5 text-white border border-white/10 group-hover:border-violet-500/30 transition-colors">2018</span>
+                                        <div class="flex items-center gap-1.5 text-violet-400 font-bold text-xs bg-violet-500/10 px-3 py-1.5 rounded-full">
+                                            <i class="ph ph-medal"></i><span>45 Cites</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-white mb-8 leading-snug font-display group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-violet-200 transition-all duration-300">
+                                        Mechanical analysis of nickel particle-coated carbon fiber-reinforced epoxy composites for advanced structural applications
+                                    </h3>
+                                    <div class="mt-auto pt-6 border-t border-white/10 flex items-center justify-between">
+                                        <div class="flex items-center gap-2 text-neutral-400 group-hover:text-white transition-colors">
+                                            <i class="ph ph-file-text text-violet-500"></i>
+                                            <span class="font-bold text-[0.7rem] tracking-wider uppercase">ACS Applied Nano Materials</span>
+                                        </div>
+                                        <i class="ph ph-arrow-up-right text-lg text-neutral-600 group-hover:text-violet-400 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                        <!-- Paper 3 -->
+                        <div class="reveal up h-full" style="transition-delay: 400ms;">
+                            <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=1rqfBNkAAAAJ&citation_for_view=1rqfBNkAAAAJ:9yKSN-GCB0IC" target="_blank" rel="noreferrer" class="block h-full group relative">
+                                <div class="absolute inset-0 bg-gradient-to-b from-violet-600 to-purple-900 rounded-[2rem] opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500"></div>
+                                <div class="h-full bg-[#050505] border border-white/10 rounded-[2rem] p-10 flex flex-col relative z-10 transition-all duration-500 overflow-hidden">
+                                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-violet-500 to-fuchsia-500 transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500"></div>
+                                    <div class="flex items-center justify-between mb-8">
+                                        <span class="px-4 py-1.5 text-[0.65rem] font-bold tracking-widest uppercase rounded-full bg-white/5 text-white border border-white/10 group-hover:border-violet-500/30 transition-colors">2020</span>
+                                        <div class="flex items-center gap-1.5 text-violet-400 font-bold text-xs bg-violet-500/10 px-3 py-1.5 rounded-full">
+                                            <i class="ph ph-medal"></i><span>33 Cites</span>
+                                        </div>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-white mb-8 leading-snug font-display group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:to-violet-200 transition-all duration-300">
+                                        Impact of graphite on thermomechanical, mechanical, thermal, electrical properties, and thermal conductivity of HDPE/copper composites
+                                    </h3>
+                                    <div class="mt-auto pt-6 border-t border-white/10 flex items-center justify-between">
+                                        <div class="flex items-center gap-2 text-neutral-400 group-hover:text-white transition-colors">
+                                            <i class="ph ph-file-text text-violet-500"></i>
+                                            <span class="font-bold text-[0.7rem] tracking-wider uppercase">Fuel Cells</span>
+                                        </div>
+                                        <i class="ph ph-arrow-up-right text-lg text-neutral-600 group-hover:text-violet-400 transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-all duration-300"></i>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="reveal up mt-16 flex justify-center" style="transition-delay: 600ms;">
+                        <div class="magnetic">
+                            <a href="https://scholar.google.com/citations?user=1rqfBNkAAAAJ&hl=en" target="_blank" rel="noreferrer" class="group flex items-center gap-3 px-8 py-4 rounded-full border border-white/20 hover:border-violet-500 bg-transparent text-white font-bold font-display transition-all duration-300 hover:shadow-[0_0_30px_rgba(139,92,246,0.3)]">
+                                <span>View All Publications</span>
+                                <i class="ph ph-arrow-up-right group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section id="experience" class="py-32 px-6 md:px-12 relative">
+                <div class="max-w-4xl mx-auto">
+                    
+                    <div class="relative mb-20 md:mb-32 flex flex-col items-center justify-center text-center">
+                        <div class="reveal down absolute inset-0 flex items-center justify-center pointer-events-none z-0" style="transition-delay: 100ms;">
+                            <span class="text-[6rem] md:text-[12rem] font-black text-white/[0.02] tracking-tighter uppercase whitespace-nowrap select-none">Career</span>
+                        </div>
+                        <div class="reveal up relative z-10" style="transition-delay: 200ms;">
+                            <div class="inline-flex items-center space-x-2 mb-4">
+                                <i class="ph ph-sparkle text-violet-500 animate-pulse"></i>
+                                <span class="text-violet-400 text-sm font-bold tracking-widest uppercase">Experience</span>
+                                <i class="ph ph-sparkle text-violet-500 animate-pulse"></i>
+                            </div>
+                            <h2 class="text-4xl md:text-6xl lg:text-7xl font-black text-white tracking-tighter">
+                                Academic <span class="text-gradient-purple">Timeline</span>
+                            </h2>
+                        </div>
+                        <div class="w-[1px] h-24 bg-gradient-to-b from-violet-500/50 to-transparent mt-8 animate-pulse"></div>
+                    </div>
+
+                    <div class="space-y-12 relative">
+                        <!-- Connecting Line -->
+                        <div class="absolute left-6 md:left-[3.5rem] top-10 bottom-10 w-[1px] bg-gradient-to-b from-violet-500 via-white/10 to-transparent"></div>
+
+                        <!-- Timeline Item 1 -->
+                        <div class="reveal right relative pl-20 md:pl-32 group" style="transition-delay: 0ms;">
+                            <div class="absolute left-[1.15rem] md:left-[3.15rem] top-1 w-4 h-4 rounded-full bg-black border-2 border-violet-500 group-hover:bg-violet-500 group-hover:scale-150 transition-all duration-500 z-10 shadow-[0_0_10px_#8b5cf6]"></div>
+                            <div class="bg-[#050505] p-8 md:p-10 rounded-[2rem] border border-white/5 group-hover:border-violet-500/50 transition-all duration-500 hover:shadow-[0_10px_40px_rgba(139,92,246,0.1)]">
+                                <span class="text-violet-400 font-bold tracking-widest text-[0.7rem] uppercase bg-violet-500/10 px-3 py-1 rounded-full">Present</span>
+                                <h3 class="text-2xl md:text-3xl font-black text-white mt-6 mb-2 font-display">Assistant Professor</h3>
+                                <p class="text-neutral-400 text-sm flex items-center gap-2 mb-6 font-medium">
+                                    <i class="ph ph-map-pin text-violet-500 text-lg"></i> Dept. of Chemical Engineering, BIET Jhansi
+                                </p>
+                                <p class="text-neutral-300 leading-relaxed">Instructing core chemical engineering courses, spearheading curriculum development, and mentoring final year undergraduate and postgraduate dissertation projects in materials science.</p>
+                            </div>
+                        </div>
+
+                        <!-- Timeline Item 2 -->
+                        <div class="reveal right relative pl-20 md:pl-32 group" style="transition-delay: 200ms;">
+                            <div class="absolute left-[1.15rem] md:left-[3.15rem] top-1 w-4 h-4 rounded-full bg-black border-2 border-violet-500 group-hover:bg-violet-500 group-hover:scale-150 transition-all duration-500 z-10 shadow-[0_0_10px_#8b5cf6]"></div>
+                            <div class="bg-[#050505] p-8 md:p-10 rounded-[2rem] border border-white/5 group-hover:border-violet-500/50 transition-all duration-500 hover:shadow-[0_10px_40px_rgba(139,92,246,0.1)]">
+                                <span class="text-violet-400 font-bold tracking-widest text-[0.7rem] uppercase bg-violet-500/10 px-3 py-1 rounded-full">Ongoing</span>
+                                <h3 class="text-2xl md:text-3xl font-black text-white mt-6 mb-2 font-display">Academic Researcher</h3>
+                                <p class="text-neutral-400 text-sm flex items-center gap-2 mb-6 font-medium">
+                                    <i class="ph ph-map-pin text-violet-500 text-lg"></i> International Peer-Reviewed Journals
+                                </p>
+                                <p class="text-neutral-300 leading-relaxed">Publishing high-impact research papers in prestigious journals, advancing the global understanding of nanostructured carbon, polymer processing, and thermomechanical material properties.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="relative pt-32 pb-48 text-center bg-[#020202] border-t border-white/10 overflow-hidden">
+            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-violet-900/20 blur-[150px] pointer-events-none rounded-t-full"></div>
+            
+            <div class="relative z-10 px-6">
+                <div class="reveal up">
+                    <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full border border-emerald-500/30 bg-emerald-500/10 mb-8 backdrop-blur-md">
+                        <span class="relative flex h-2 w-2">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                        </span>
+                        <span class="text-emerald-400 text-xs font-bold uppercase tracking-widest">Available for Collaboration</span>
+                    </div>
+                    <h2 class="text-6xl md:text-8xl lg:text-[8rem] font-black text-white tracking-tighter mb-8 font-display">
+                        Let's <span class="text-gradient-purple">Connect</span>
+                    </h2>
+                    <p class="text-neutral-400 max-w-2xl mx-auto mb-16 text-lg md:text-xl">
+                        Open for academic discussions, research collaborations, and professional inquiries in Chemical Engineering and Materials Science.
+                    </p>
+                </div>
+
+                <div class="reveal up flex flex-col sm:flex-row items-center justify-center gap-6" style="transition-delay: 200ms;">
+                    <div class="magnetic">
+                        <a href="mailto:rk@bietjhs.ac.in" class="group relative px-10 py-5 bg-white text-black font-display font-bold text-lg rounded-full flex items-center gap-3 overflow-hidden hover:scale-105 transition-transform duration-300">
+                            <i class="ph ph-envelope text-2xl relative z-10"></i>
+                            <span class="relative z-10">rk@bietjhs.ac.in</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="reveal up mt-32 text-neutral-600 text-xs font-bold tracking-widest uppercase" style="transition-delay: 400ms;">
+                    © <span id="year"></span> Ravindra Kumar Niranjan • BIET Jhansi
+                </div>
+            </div>
+        </footer>
+
+        <!-- Animated Contact Dock -->
+        <div class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[100] w-[95%] sm:w-auto transition-transform duration-500">
+            <div id="contact-dock" class="reveal up w-full" style="transition-delay: 2000ms;">
+                <div class="animated-border-box shadow-[0_0_50px_rgba(124,58,237,0.4)] hover:shadow-[0_0_80px_rgba(124,58,237,0.6)] transition-shadow duration-500">
+                    <div class="glass-purple rounded-full p-2 flex flex-col sm:flex-row items-center gap-2 relative z-10 w-full">
+                        
+                        <div class="magnetic w-full sm:w-auto">
+                            <a href="mailto:rk@bietjhs.ac.in" class="flex items-center justify-center gap-3 py-3 px-6 rounded-full bg-white/5 hover:bg-white/10 text-white text-sm font-bold transition-colors w-full">
+                                <i class="ph ph-envelope text-violet-400 text-lg"></i>
+                                <span>rk@bietjhs.ac.in</span>
+                            </a>
+                        </div>
+
+                        <div class="magnetic w-full sm:w-auto">
+                            <a href="mailto:rkniranjan.bietjhs@gmail.com" class="group relative flex items-center justify-center gap-3 py-3 px-6 rounded-full bg-white text-black text-sm font-bold w-full overflow-hidden">
+                                <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-violet-200 to-white transform scale-x-0 origin-left group-hover:scale-x-100 transition-transform duration-500 ease-out"></span>
+                                <i class="ph ph-envelope text-lg relative z-10"></i>
+                                <span class="relative z-10 text-gradient-shimmer group-hover:!text-black group-hover:!bg-none group-hover:![-webkit-text-fill-color:black]">rkniranjan.bietjhs@gmail.com</span>
+                            </a>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        window.onload = function() {
+            // Preloader logic
+            setTimeout(() => {
+                const preloader = document.getElementById('preloader');
+                preloader.style.transform = 'translateY(-100%)';
+                setTimeout(() => preloader.style.display = 'none', 1000); // hide fully after animation
+                
+                // Dock reveal manually since it starts hidden
+                const dock = document.getElementById('contact-dock');
+                if(dock) dock.classList.add('is-visible');
+            }, 2200);
+
+            // Custom Trailing Cursor
+            const cursor = document.getElementById('custom-cursor');
+            const spotlight = document.getElementById('spotlight');
+            
+            if (window.matchMedia("(min-width: 768px)").matches) {
+                document.addEventListener('mousemove', (e) => {
+                    requestAnimationFrame(() => {
+                        if(cursor) {
+                            cursor.style.transform = `translate(${e.clientX - 16}px, ${e.clientY - 16}px)`;
+                        }
+                        if(spotlight) {
+                            spotlight.style.background = `radial-gradient(800px circle at ${e.clientX}px ${e.clientY}px, rgba(88, 28, 135, 0.15), transparent 50%)`;
+                        }
+                    });
+                });
+            }
+
+            // Navbar scroll effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.remove('bg-transparent', 'py-8');
+                    navbar.classList.add('glass-dark', 'py-4', 'shadow-[0_10px_30px_rgba(0,0,0,0.5)]', 'border-b', 'border-white/5');
+                } else {
+                    navbar.classList.add('bg-transparent', 'py-8');
+                    navbar.classList.remove('glass-dark', 'py-4', 'shadow-[0_10px_30px_rgba(0,0,0,0.5)]', 'border-b', 'border-white/5');
+                }
+            });
+
+            // Intersection Observer for Scroll Reveals
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // trigger once
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach((el) => {
+                revealObserver.observe(el);
+            });
+
+            // Magnetic Button Effect
+            const magneticElements = document.querySelectorAll('.magnetic');
+            magneticElements.forEach((el) => {
+                el.addEventListener('mousemove', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX - rect.left - rect.width / 2;
+                    const y = e.clientY - rect.top - rect.height / 2;
+                    el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
+                });
+                
+                el.addEventListener('mouseleave', () => {
+                    el.style.transform = `translate(0px, 0px)`;
+                });
+            });
+
+            // 3D Tilt Card Effect
+            const tiltCards = document.querySelectorAll('.tilt-card');
+            tiltCards.forEach(card => {
+                const glare = card.querySelector('.tilt-glare');
+                
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateX = ((y - centerY) / centerY) * -10; 
+                    const rotateY = ((x - centerX) / centerX) * 10;
+
+                    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1, 1, 1)`;
+                    
+                    if (glare) {
+                        glare.style.opacity = '0.15';
+                        glare.style.background = `radial-gradient(circle at ${(x / rect.width) * 100}% ${(y / rect.height) * 100}%, rgba(255,255,255,0.8) 0%, transparent 50%)`;
+                    }
+                });
+
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+                    if (glare) {
+                        glare.style.opacity = '0';
+                    }
+                });
+            });
+        }
+    </script>
+</body>
+</html>
